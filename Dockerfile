@@ -24,5 +24,6 @@ RUN npm install --force
 RUN npm run build --prod
 
 FROM nginx:alpine
-
-COPY --from=node /app/dist /usr/share/nginx/html
+WORKDIR /usr/share/nginx/html
+EXPOSE 80
+COPY --from=node /app/dist .
