@@ -30,6 +30,8 @@ jobs:
          run: docker rm -f angularcontainer
        - name: Run docker container
          run: docker run -d -p 4200:80 --name angularcontainer rakesharkitan/testing
+       - name: nginx container
+         run : docker run -d -p 80:80 --name nginxcontainer nginx:1.23alpine
       
 
 
