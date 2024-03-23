@@ -1,29 +1,29 @@
-# FROM node:alpine3.18 as build
-# WORKDIR /app
-# COPY package.json .
-# RUN npm install
-# COPY . .
-# RUN npm run build
-
-
-# FROM nginx:1.23-alpine
-# WORKDIR /usr/share/nginx/html
-# RUN rm -rf *
-# COPY --from=build /app/dist .
-# EXPOSE 80
-# ENTRYPOINT [ "nginx", "-g", "daemon off;" ]
-
-
-FROM node:latest as node
-
+FROM node:alpine3.18 as build
 WORKDIR /app
-
+COPY package.json .
+RUN npm install
 COPY . .
+RUN npm run build
 
-RUN npm install --force
-RUN npm run build --prod
 
-FROM nginx:alpine
+FROM nginx:1.23-alpine
 WORKDIR /usr/share/nginx/html
+RUN rm -rf *
+COPY --from=build /app/dist .
 EXPOSE 80
-COPY --from=node /app/dist .
+ENTRYPOINT [ "nginx", "-g", "daemon off;" ]
+
+
+# FROM node:latest as node
+
+# WORKDIR /app
+
+# COPY . .
+
+# RUN npm install --force
+# RUN npm run build --prod
+
+# FROM nginx:alpine
+# WORKDIR /usr/share/nginx/html
+# EXPOSE 80
+# COPY --from=node /app/dist .
