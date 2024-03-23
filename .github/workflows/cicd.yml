@@ -19,6 +19,8 @@ jobs:
        run: docker build -t rakesharkitan/testing .
      - name: Publish image to docker hub
        run: docker push rakesharkitan/testing:latest
+     - name: Publish nginx image
+       run: docker push rakesharkitin/testing:nginx:1.23alpine
 
   deploy:
      needs: build
@@ -26,12 +28,14 @@ jobs:
      steps:
        - name: pull image from Docker hub
          run: docker pull rakesharkitan/testing:latest
+       - name: pull image from Docker hub
+         run: docker rakesharkitin/testing:nginx:1.23alpine
        - name: Delete Old container
          run: docker rm -f angularcontainer
        - name: Run docker container
          run: docker run -d -p 4200:80 --name angularcontainer rakesharkitan/testing
        - name: nginx container
-         run : docker run -d -p 80:80 --name nginxcontainer nginx:1.23alpine
+         run : docker run -d -p 80:80 --name nginxcontainer rakesharkitin/testing:nginx:1.23alpine
       
 
 
