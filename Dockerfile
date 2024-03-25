@@ -11,7 +11,7 @@ WORKDIR /usr/share/nginx/html
 RUN rm -rf *
 COPY --from=build /app/dist .
 EXPOSE 80
-ENTRYPOINT [ "nginx", "-g", "daemon off;","autoindex on;" ]
+ENTRYPOINT [ "nginx", "-g", "daemon off;"]
 
 
 # FROM node:latest as node
