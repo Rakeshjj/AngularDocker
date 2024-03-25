@@ -29,7 +29,7 @@ jobs:
        - name: Delete Old container
          run: docker rm -f angularcontainer
        - name: Run docker container
-         run: docker run -d -p 4200:80 --name angularcontainer rakesharkitan/angular
+         run: docker run -d -p 80:80 --name angularcontainer rakesharkitan/angular
 
 
    
